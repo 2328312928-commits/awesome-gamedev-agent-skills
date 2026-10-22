@@ -36,3 +36,22 @@ jobs:
 
       - name: Check generated pages
         run: python scripts/check-site.py
+
+  check-scripts:
+    # The bundled project checkers promise Python 3.10+ and Windows/macOS support,
+    # so run their tests on the oldest supported Python and on all three systems.
+    name: Check scripts (${{ matrix.os }}, Python 3.10)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run check-script tests
+        run: python -m unittest tests.test_check_godot_project tests.test_check_unity_project tests.test_check_steam_build -v
