@@ -94,6 +94,24 @@ normalization, conversion, reports, or preview generation. Scripts must:
 - write only to explicit output paths;
 - be exercised locally before merge.
 
+Check scripts that read a user's project (for example
+`skills/godot/godot-nodes-scenes/scripts/check_godot_project.py`) also follow one shared shape so
+they behave the same in every skill:
+
+- Python 3.10+ standard library only, one file, read-only, no network and no subprocesses;
+- `script.py TARGET [--json] [--strict] [--max-issues N]`;
+- exit 0 when there are no errors, 1 when there are errors (or warnings with `--strict`), 2 when
+  the target is missing or is the wrong kind of project;
+- text output of one `ERROR`/`WARNING path:line: message` line plus a `fix:` line per issue,
+  then a `Summary:` line; `--json` prints one object with `tool`, `schema`, `root`,
+  `files_checked`, `error_count`, `warning_count`, `errors`, `warnings` and `truncated`;
+- an `ERROR` only for something that really breaks the project; anything that might be fine is a
+  `WARNING`;
+- end-to-end tests in `tests/test_<script>.py` that build their fixtures in a temporary folder.
+
+The SKILL.md step that runs the script says when to run it and what to do with the result, and
+notes that script paths are relative to the skill directory.
+
 ### `assets/`
 
 Use assets for templates, schemas, starter files, palettes, or other inputs intended to be copied
