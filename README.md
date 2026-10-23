@@ -4,23 +4,23 @@
 
 <p align="center">
   <img src="docs/assets/awesome-gamedev-agent-skills-banner.png" width="820"
-       alt="awesome-gamedev-agent-skills — game-dev skills for AI coding agents. 74 skills and a router across 10 engines, including an art-direction and asset-production workflow.">
+       alt="awesome-gamedev-agent-skills — game-dev skills for AI coding agents. 75 skills and a router across 11 engines, including an art-direction and asset-production workflow.">
 </p>
 
-**74 game-dev skills for your AI coding agent — install once, and a router loads the
+**75 game-dev skills for your AI coding agent — install once, and a router loads the
 right skill for whatever you're building.**
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-74%20%2B%20router-brightgreen)](skills/)
+[![Skills](https://img.shields.io/badge/skills-75%20%2B%20router-brightgreen)](skills/)
 [![Format](https://img.shields.io/badge/format-Agent%20Skills-informational)](docs/SKILL-FORMAT.md)
 [![Last commit](https://img.shields.io/github/last-commit/gamedev-skills/awesome-gamedev-agent-skills)](https://github.com/gamedev-skills/awesome-gamedev-agent-skills/commits/main)
 
 [Agent Skills](docs/SKILL-FORMAT.md) are small capability files an AI agent loads only when it
-needs them. This repo gives your agent **74 game-dev skills** and a **router** that picks the
+needs them. This repo gives your agent **75 game-dev skills** and a **router** that picks the
 right ones for you. You describe what you're building; the agent loads the matching engine and
 task skills before it writes code.
 
-- **Cross-engine.** Godot, Unity, Unreal, Phaser, PixiJS, three.js, Bevy, pygame, LÖVE, Roblox.
+- **Cross-engine.** Godot, Unity, Unreal, Ebitengine, Phaser, PixiJS, three.js, Bevy, pygame, LÖVE, Roblox.
 - **You don't pick skills.** The router detects your engine and task and loads only what fits.
 - **Art direction, not one-off generations.** The asset workflow locks a visual target, builds
   families, normalizes outputs deterministically, and checks them inside the game.
@@ -40,7 +40,7 @@ task skills before it writes code.
 ## Quick start
 
 **One command, any agent.** The [`skills`](https://www.npmjs.com/package/skills) CLI detects the
-coding agent you already use and installs the router plus all 74 skills into the right place:
+coding agent you already use and installs the router plus all 75 skills into the right place:
 
 ```bash
 npx skills add gamedev-skills/awesome-gamedev-agent-skills
@@ -63,7 +63,7 @@ Building in only one engine? Install a smaller bundle — `router` plus your eng
 
 ```bash
 claude plugin install router@awesome-gamedev-agent-skills
-claude plugin install godot@awesome-gamedev-agent-skills    # or: unity · unreal · web-engines · other-engines
+claude plugin install godot@awesome-gamedev-agent-skills    # or: unity · unreal · ebitengine · web-engines · other-engines
 ```
 
 Prefer to copy the files by hand, or want the exact per-tool paths? See
@@ -84,6 +84,7 @@ Describe the task in plain language. The router figures out the skills:
 |---------|-------------------------|
 | "add a double jump to my Godot player" | `godot-2d-movement` + `platformer` |
 | "make an inventory for my Unity RPG" | `unity-scriptableobjects` + `rpg` + `save-systems` |
+| "build a 2D puzzle in Go with Ebitengine" | `ebitengine-game` + `puzzle` |
 | "procedural dungeon roguelike in Godot" | `godot-tilemap` + `procedural-gen` + `roguelike` |
 | "make a cohesive pixel-art player, enemies, and tiles" | `create-game-assets` + the detected engine importer |
 | "how should I design save slots?" | `save-systems` |
@@ -117,7 +118,7 @@ engine), while disciplines, genres, and workflows are additive on top.
 
 ## Catalog
 
-74 skills across 8 categories — each links to its `SKILL.md` below.
+75 skills across 9 categories — each links to its `SKILL.md` below.
 
 ### Engines
 
@@ -165,6 +166,12 @@ engine), while disciplines, genres, and workflows are additive on top.
 | [`unreal-behavior-trees`](skills/unreal/unreal-behavior-trees/SKILL.md) | AI Behavior Trees + Blackboard, tasks/decorators/services |
 | [`unreal-niagara`](skills/unreal/unreal-niagara/SKILL.md) | Niagara VFX: systems, emitters, modules, parameters |
 | [`unreal-packaging`](skills/unreal/unreal-packaging/SKILL.md) | Packaging/cooking projects, build configs, shipping builds |
+
+#### Ebitengine — 1 ([`skills/ebitengine/`](skills/ebitengine/)) · Ebitengine v2.10.5 · Go 1.25+
+
+| Skill | Scope |
+|-------|-------|
+| [`ebitengine-game`](skills/ebitengine/ebitengine-game/SKILL.md) | Playable Go 2D games: update/draw contracts, input, rendering, text, audio, gameplay tests, optional starter and platform builds |
 
 #### Web engines — 6 ([`skills/web-engines/`](skills/web-engines/)) · Phaser 4.2 · PixiJS 8.21 · three.js r186
 
@@ -283,7 +290,7 @@ Here's the shape of a single exchange (illustrative):
 > add a double jump to my player
 
 Detected Godot (project.godot). Loading godot-2d-movement for the controller
-and platformer for jump feel — skipping the other 71 skills.
+and platformer for jump feel — skipping the other 73 skills.
 ```
 
 ```gdscript
@@ -312,7 +319,7 @@ func _physics_process(delta: float) -> void:
 ## Repository layout
 
 ```
-skills/        74 specialized skills, grouped by engine / discipline / genre / workflow
+skills/        75 specialized skills, grouped by engine / discipline / genre / workflow
 router/        the master router skill (+ references/)
 docs/          authoring standard, installation, compatibility
 templates/     SKILL.md template

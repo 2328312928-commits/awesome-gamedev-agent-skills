@@ -49,6 +49,11 @@ CATEGORIES: dict[str, tuple[str, str]] = {
         "Skills for Unreal Engine 5.4+ — Blueprints, C++ gameplay framework, "
         "Enhanced Input, Behavior Trees, Niagara and packaging.",
     ),
+    "ebitengine": (
+        "Ebitengine Agent Skills",
+        "A skill for playable 2D games in Go with Ebitengine v2.10.5: input, "
+        "rendering, text, audio, gameplay tests and platform builds.",
+    ),
     "web-engines": (
         "Web Game Engine Agent Skills",
         "Skills for browser game engines — Phaser 3, PixiJS v8 and three.js r165+.",
@@ -350,7 +355,7 @@ def build_index(out: Path, skills: list[Skill], base_url: str) -> None:
             title="Game Development Agent Skills for AI Coding Agents",
             description=meta_description(
                 f"{len(skills)} game dev agent skills for AI coding agents across Godot, "
-                "Unity, Unreal, Phaser, three.js, Bevy, pygame, LÖVE and Roblox."
+                "Unity, Unreal, Ebitengine, Phaser, three.js, Bevy, pygame, LÖVE and Roblox."
             ),
             canonical=f"{base_url}/",
             body=body,
