@@ -131,7 +131,7 @@ end
 ```
 
 Callbacks: `init`, `final`, `fixed_update`, `update`, `late_update` (after every `update`,
-before render; since 1.12), `on_message`, `on_input`, `on_reload`. Update order between game
+before render), `on_message`, `on_input`, `on_reload`. Update order between game
 objects is unspecified. `fixed_update` runs 0..N times per frame at `[engine]
 fixed_update_frequency`; set `[physics] use_fixed_timestep = 1` too so physics steps at the
 same rate, and put physics-driven code there. `self` is userdata: store
