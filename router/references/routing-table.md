@@ -76,6 +76,7 @@ a real folder at `skills/<category>/<name>/SKILL.md`. Trigger words (`says:`) an
 | `bevy-ecs` | "Bevy", "ECS system/query", `Commands`, "Bevy plugin"; `Cargo.toml` dep `bevy` |
 | `pygame-core` | "pygame", "blit", "sprite group", game loop; `import pygame` |
 | `love2d-core` | "LÖVE", "love2d", `love.draw`, `love.update(dt)`; `main.lua`/`conf.lua`/`*.love` |
+| `defold-core` | "Defold", collection/game object/component, `msg.post`, `on_message`, `on_input`, `acquire_input_focus`, `go.property`, `factory.create`, collection proxy, `bob.jar`, Defold build error; `game.project` + `*.collection`/`*.go`/`*.script` (target Defold 1.14.0) |
 | `roblox-luau` | "Roblox", "Luau", `RemoteEvent`, services; `*.luau` + `*.rbxl(x)` / Rojo |
 | `roblox-datastores` | "DataStore", "save player data", `GetDataStore`; `DataStoreService` |
 | `roblox-ui` | Roblox HUD/menu/inventory/shop, `ScreenGui`, `PlayerGui`, `UDim2`, `AutomaticSize`, `GuiService`, UI clipping/respawn, touch/gamepad focus, generic generated UI |
@@ -142,7 +143,7 @@ the detected engine lacks, load the closest skill(s) and **state the gap** plain
 - **No dedicated 3D-essentials for Unity.** For a Unity FPS, use `unity-csharp-scripting` +
   `unity-physics` + `unity-navmesh`; only Godot has `godot-3d-essentials` and Unreal has
   `unreal-cpp-gameplay`.
-- **No `*-tilemap` for web / Bevy / pygame / Roblox / LÖVE.** Use `level-design` for the concept
+- **No `*-tilemap` for web / Bevy / pygame / Roblox / LÖVE / Defold.** Use `level-design` for the concept
   and the engine's rendering skill for drawing; note the missing engine tilemap skill.
 - **No engine-specific save skill except Roblox.** `save-systems` owns the concept and cites
   Godot IO; `roblox-datastores` is the one engine-specific persistence skill.
@@ -152,3 +153,7 @@ the detected engine lacks, load the closest skill(s) and **state the gap** plain
   scaffold. The Tiled loader is deliberately constrained, not a complete editor importer.
   Networking guidance does not supply transport/matchmaking; native 3D is outside this
   2D skill. Never substitute another engine's API to hide one of these gaps.
+- **Defold has one core skill.** Bind movement, input, spawning, level loading and build slots
+  to `defold-core`. There is no Defold GUI, sprite/tilemap or collision skill yet: use
+  `defold-core` (its build reference links the official manuals for those subsystems) plus
+  `game-ui-ux` / `level-design` / `physics-tuning`, and state the gap.

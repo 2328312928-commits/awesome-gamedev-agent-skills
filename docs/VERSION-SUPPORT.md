@@ -1,6 +1,7 @@
 # Version support
 
-Checked **2026-09-25** (Bevy row re-checked **2026-10-09** for the 0.20 release). These are
+Checked **2026-09-25** (Bevy row re-checked **2026-10-09** for the 0.20 release; Defold row
+added **2026-10-23**). These are
 authoring baselines for **new projects**, not forced upgrade
 targets. Existing projects keep the version declared by their manifest, lockfile, or engine
 metadata unless the user explicitly asks for migration.
@@ -18,6 +19,7 @@ metadata unless the user explicitly asks for migration.
 | Bevy | 0.20 | `Cargo.toml` + `Cargo.lock`; [Bevy 0.20](https://bevy.org/news/bevy-0-20/) and [migration guide](https://bevy.org/learn/migration-guides/0-19-to-0-20/) |
 | pygame-ce | 2.5.8 | Python dependency/lockfile; [pygame-ce releases](https://github.com/pygame-community/pygame-ce/releases) |
 | LÖVE | 11.5 | `conf.lua` / `main.lua`; [LÖVE releases](https://love2d.org/wiki/Version_History) |
+| Defold | 1.14.0 (examples built with Bob 1.14.0 and run on the 1.14.0 headless engine; checked 2026-10-23) | `game.project` has no version key: the editor/`bob.jar` version the project is built with, `library.defold_min_version`; [stable release info](https://d.defold.com/stable/info.json), [1.14.0 release](https://github.com/defold/defold/releases/tag/1.14.0) and [Bob manual](https://defold.com/manuals/bob/) |
 | Roblox | rolling platform APIs | Rojo project / place files; [Creator Hub](https://create.roblox.com/docs) |
 
 ## Rules for version-sensitive work

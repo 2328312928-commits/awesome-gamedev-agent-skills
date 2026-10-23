@@ -4,23 +4,23 @@
 
 <p align="center">
   <img src="docs/assets/awesome-gamedev-agent-skills-banner.png" width="820"
-       alt="awesome-gamedev-agent-skills — game-dev skills for AI coding agents. 75 skills and a router across 11 engines, including an art-direction and asset-production workflow.">
+       alt="awesome-gamedev-agent-skills — game-dev skills for AI coding agents. 76 skills and a router across 12 engines, including an art-direction and asset-production workflow.">
 </p>
 
-**75 game-dev skills for your AI coding agent — install once, and a router loads the
+**76 game-dev skills for your AI coding agent — install once, and a router loads the
 right skill for whatever you're building.**
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-75%20%2B%20router-brightgreen)](skills/)
+[![Skills](https://img.shields.io/badge/skills-76%20%2B%20router-brightgreen)](skills/)
 [![Format](https://img.shields.io/badge/format-Agent%20Skills-informational)](docs/SKILL-FORMAT.md)
 [![Last commit](https://img.shields.io/github/last-commit/gamedev-skills/awesome-gamedev-agent-skills)](https://github.com/gamedev-skills/awesome-gamedev-agent-skills/commits/main)
 
 [Agent Skills](docs/SKILL-FORMAT.md) are small capability files an AI agent loads only when it
-needs them. This repo gives your agent **75 game-dev skills** and a **router** that picks the
+needs them. This repo gives your agent **76 game-dev skills** and a **router** that picks the
 right ones for you. You describe what you're building; the agent loads the matching engine and
 task skills before it writes code.
 
-- **Cross-engine.** Godot, Unity, Unreal, Ebitengine, Phaser, PixiJS, three.js, Bevy, pygame, LÖVE, Roblox.
+- **Cross-engine.** Godot, Unity, Unreal, Ebitengine, Phaser, PixiJS, three.js, Bevy, pygame, LÖVE, Defold, Roblox.
 - **You don't pick skills.** The router detects your engine and task and loads only what fits.
 - **Art direction, not one-off generations.** The asset workflow locks a visual target, builds
   families, normalizes outputs deterministically, and checks them inside the game.
@@ -40,7 +40,7 @@ task skills before it writes code.
 ## Quick start
 
 **One command, any agent.** The [`skills`](https://www.npmjs.com/package/skills) CLI detects the
-coding agent you already use and installs the router plus all 75 skills into the right place:
+coding agent you already use and installs the router plus all 76 skills into the right place:
 
 ```bash
 npx skills add gamedev-skills/awesome-gamedev-agent-skills
@@ -85,6 +85,7 @@ Describe the task in plain language. The router figures out the skills:
 | "add a double jump to my Godot player" | `godot-2d-movement` + `platformer` |
 | "make an inventory for my Unity RPG" | `unity-scriptableobjects` + `rpg` + `save-systems` |
 | "build a 2D puzzle in Go with Ebitengine" | `ebitengine-game` + `puzzle` |
+| "add player movement to my Defold game" | `defold-core` + `input-systems` |
 | "procedural dungeon roguelike in Godot" | `godot-tilemap` + `procedural-gen` + `roguelike` |
 | "make a cohesive pixel-art player, enemies, and tiles" | `create-game-assets` + the detected engine importer |
 | "how should I design save slots?" | `save-systems` |
@@ -118,7 +119,7 @@ engine), while disciplines, genres, and workflows are additive on top.
 
 ## Catalog
 
-75 skills across 9 categories — each links to its `SKILL.md` below.
+76 skills across 9 categories — each links to its `SKILL.md` below.
 
 ### Engines
 
@@ -184,13 +185,14 @@ engine), while disciplines, genres, and workflows are additive on top.
 | [`threejs-gltf-loading`](skills/web-engines/threejs-gltf-loading/SKILL.md) | Loading glTF/GLB + skinned animation (`GLTFLoader`/`AnimationMixer`) |
 | [`threejs-materials-lighting`](skills/web-engines/threejs-materials-lighting/SKILL.md) | Materials (PBR), lights, shadows, environment maps |
 
-#### Other engines — 10 ([`skills/other-engines/`](skills/other-engines/)) · Bevy · pygame · LÖVE · Roblox
+#### Other engines — 11 ([`skills/other-engines/`](skills/other-engines/)) · Bevy · pygame · LÖVE · Defold · Roblox
 
 | Skill | Scope |
 |-------|-------|
-| [`bevy-ecs`](skills/other-engines/bevy-ecs/SKILL.md) | Bevy app + ECS: components, systems, queries, resources, plugins (Bevy 0.19) |
+| [`bevy-ecs`](skills/other-engines/bevy-ecs/SKILL.md) | Bevy app + ECS: components, systems, queries, resources, plugins (Bevy 0.20) |
 | [`pygame-core`](skills/other-engines/pygame-core/SKILL.md) | pygame loop, `Surface`/`Rect`, sprites/groups, events (pygame-ce 2.5.8) |
 | [`love2d-core`](skills/other-engines/love2d-core/SKILL.md) | LÖVE `load/update/draw` loop, dt-driven motion, input, states (LÖVE 11.5) |
+| [`defold-core`](skills/other-engines/defold-core/SKILL.md) | Defold collections, game objects, script lifecycle, input, messages, factories, proxies, Bob build checks (Defold 1.14.0) |
 | [`roblox-luau`](skills/other-engines/roblox-luau/SKILL.md) | Roblox Luau scripting: services, instances, client/server model |
 | [`roblox-datastores`](skills/other-engines/roblox-datastores/SKILL.md) | Persistent data with `DataStoreService`: sessions, limits, ordered stores |
 | [`roblox-ui`](skills/other-engines/roblox-ui/SKILL.md) | Roblox UI: `ScreenGui` layout, responsive scaling, safe areas, gamepad/touch navigation |
@@ -290,7 +292,7 @@ Here's the shape of a single exchange (illustrative):
 > add a double jump to my player
 
 Detected Godot (project.godot). Loading godot-2d-movement for the controller
-and platformer for jump feel — skipping the other 73 skills.
+and platformer for jump feel — skipping the other 74 skills.
 ```
 
 ```gdscript
@@ -319,7 +321,7 @@ func _physics_process(delta: float) -> void:
 ## Repository layout
 
 ```
-skills/        75 specialized skills, grouped by engine / discipline / genre / workflow
+skills/        76 specialized skills, grouped by engine / discipline / genre / workflow
 router/        the master router skill (+ references/)
 docs/          authoring standard, installation, compatibility
 templates/     SKILL.md template
