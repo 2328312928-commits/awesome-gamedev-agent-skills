@@ -112,6 +112,7 @@ handling, and re-sample held state when a binding changes. Show key names with
 `ebiten.KeyName(key)`; it reflects the layout for named printable keys but may
 return an empty string. Supply labels for arrows, modifiers and unsupported
 platforms (for example a table, with `key.String()` as a final fallback).
+For engine-neutral rebinding and remapping UX, see `input-systems`.
 
 ## Menus: key repeat
 

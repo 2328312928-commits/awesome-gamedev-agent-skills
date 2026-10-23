@@ -69,6 +69,12 @@ DEPRECATED_MAYBE = [
     (r"\.ReplacePixels\(", "Image.ReplacePixels (v2.4) -> Image.WritePixels (if this is an ebiten.Image)"),
     (r"\.Dispose\(\)", "Image/Shader.Dispose (v2.7) -> Deallocate, or just drop the reference (ignore if not an ebiten type)"),
 ]
+# Like DEPRECATED_MAYBE, but only checked in files that import the Ebitengine audio package.
+DEPRECATED_PLAYER = [
+    (r"\.Close\(\)", "Player.Close (v2.10) -> Player.PauseAndStopReading (if this is an audio.Player)"),
+    (r"\.Seek\([^,()]*\)", "Player.Seek (v2.6) -> Player.SetPosition (if this is an audio.Player)"),
+    (r"\.Current\(\)", "Player.Current (v2.6) -> Player.Position (if this is an audio.Player)"),
+]
 
 # Checks inside Draw bodies. Capture bookkeeping is an intentional exception.
 IN_DRAW = [
@@ -172,7 +178,9 @@ def scan_file(path, raw_imports):
         if alias not in (".", "_") and import_path in known:
             names[alias] = known[import_path]
     canonical = set(known.values())
-    code = re.sub(r"\b([A-Za-z_]\w*)\s*(?=\.)", lambda m: names.get(
+    # A name after "." is a field or method (s.audio.NewPlayer), not a package.
+    code = re.sub(r"(?<=\.)(" + "|".join(sorted(canonical)) + r")\b", r"__field_\1", code)
+    code = re.sub(r"(?<![.\w])([A-Za-z_]\w*)\s*(?=\.)", lambda m: names.get(
         m.group(1), "__other_"+m.group(1) if m.group(1) in canonical else m.group(1)), code)
     found = []
 
@@ -182,7 +190,7 @@ def scan_file(path, raw_imports):
     for pat, msg in DEPRECATED:
         for m in re.finditer(pat, code):
             add("warn", code.count("\n", 0, m.start()) + 1, "deprecated: " + msg)
-    for pat, msg in DEPRECATED_MAYBE:
+    for pat, msg in DEPRECATED_MAYBE + (DEPRECATED_PLAYER if "audio" in names.values() else []):
         for m in re.finditer(pat, code):
             add("warn", code.count("\n", 0, m.start()) + 1, "possibly deprecated: " + msg)
     for _, import_path, line in imported:

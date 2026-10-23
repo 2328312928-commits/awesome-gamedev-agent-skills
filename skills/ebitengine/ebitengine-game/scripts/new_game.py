@@ -65,7 +65,10 @@ def main():
     if not args.title.strip() or any(unicodedata.category(c).startswith("C") for c in args.title):
         print("error: --title must be nonempty and contain no control characters", file=sys.stderr)
         return 2
-    name = re.sub(r"[^a-z0-9_-]", "", args.module.rsplit("/", 1)[-1].lower()) or "game"
+    parts = args.module.split("/")
+    if len(parts) > 1 and re.fullmatch(r"v\d+", parts[-1]):
+        parts.pop()  # major-version suffix: github.com/you/game/v2 -> game
+    name = re.sub(r"[^a-z0-9_-]", "", parts[-1].lower()) or "game"
     bundle_name = name.replace("_", "-").strip("-") or "game"
     bundle_id = args.bundle_id or f"com.example.{bundle_name}"
     if not re.match(r"^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$", bundle_id):

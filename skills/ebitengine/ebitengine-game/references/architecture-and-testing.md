@@ -239,7 +239,8 @@ func Load(game string) (SaveData, error) {
   through `syscall/js` behind a `//go:build js` file.
 - Include a format version, migrate supported old formats and report unsupported
   versions without overwriting them. Recover malformed data from a validated
-  backup or show a recoverable error.
+  backup or show a recoverable error. For engine-neutral save design and
+  migration, see `save-systems`.
 
 ## Testing
 

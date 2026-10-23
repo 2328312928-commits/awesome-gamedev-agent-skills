@@ -116,6 +116,27 @@ func main() {}
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)["files_checked"], 1)
 
+    def test_struct_fields_named_like_packages_are_not_package_calls(self):
+        self.write("main.go", '''package main
+import (
+    e "github.com/hajimehoshi/ebiten/v2"
+    "github.com/hajimehoshi/ebiten/v2/audio"
+)
+func f(s *S, r R) { s.audio.NewPlayer(r); s.e.SetMaxTPS(60); audio.CurrentContext() }
+''')
+        result = self.run_check("--json", "--strict")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(json.loads(result.stdout)["warning_count"], 0)
+
+    def test_deprecated_player_methods_are_checked_only_with_audio_import(self):
+        body = "func f(p *P, file *F) { p.Close(); p.Seek(d); p.Current(); file.Seek(0, 0) }\n"
+        self.write("main.go", 'package main\nimport "github.com/hajimehoshi/ebiten/v2/audio"\n' + body)
+        report = json.loads(self.run_check("--json").stdout)
+        self.assertEqual(sorted(i["message"].split(" ")[2] for i in report["warnings"]),
+                         ["Player.Close", "Player.Current", "Player.Seek"])
+        self.write("main.go", 'package main\nimport "github.com/hajimehoshi/ebiten/v2"\n' + body)
+        self.assertEqual(json.loads(self.run_check("--json").stdout)["warning_count"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()
