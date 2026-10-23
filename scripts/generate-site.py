@@ -59,8 +59,8 @@ CATEGORIES: dict[str, tuple[str, str]] = {
         "Skills for browser game engines — Phaser 3, PixiJS v8 and three.js r165+.",
     ),
     "other-engines": (
-        "Bevy, pygame, LÖVE and Roblox Agent Skills",
-        "Skills for Bevy ECS, pygame, LÖVE and Roblox Luau, including DataStore "
+        "Bevy, pygame, LÖVE, Defold and Roblox Agent Skills",
+        "Skills for Bevy ECS, pygame, LÖVE, Defold and Roblox Luau, including DataStore "
         "persistence.",
     ),
     "disciplines": (
@@ -355,7 +355,7 @@ def build_index(out: Path, skills: list[Skill], base_url: str) -> None:
             title="Game Development Agent Skills for AI Coding Agents",
             description=meta_description(
                 f"{len(skills)} game dev agent skills for AI coding agents across Godot, "
-                "Unity, Unreal, Ebitengine, Phaser, three.js, Bevy, pygame, LÖVE and Roblox."
+                "Unity, Unreal, Ebitengine, Phaser, three.js, Bevy, pygame, LÖVE, Defold and Roblox."
             ),
             canonical=f"{base_url}/",
             body=body,

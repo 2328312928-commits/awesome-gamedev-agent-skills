@@ -16,9 +16,10 @@ Scan for the highest-confidence signal and stop at the first match in this prece
 | 6 | Phaser | `package.json` dep `phaser` | `import Phaser`, `new Phaser.Game` | `skills/web-engines/phaser-core`, `skills/web-engines/phaser-arcade-physics` |
 | 7 | PixiJS | `package.json` dep `pixi.js` | `import * as PIXI`, `new PIXI.Application` | `skills/web-engines/pixijs-rendering/` |
 | 8 | three.js | `package.json` dep `three` | `import * as THREE`, `*.gltf` / `*.glb` | `skills/web-engines/threejs-scene-setup`, `threejs-gltf-loading`, `threejs-materials-lighting` |
-| 9 | LÖVE | `conf.lua`, or `main.lua` calling `love.*` | `*.love` | `skills/other-engines/love2d-core/` |
-| 10 | pygame | `*.py` with `import pygame` | `pygame.init()`, `pygame.display.set_mode` | `skills/other-engines/pygame-core/` |
-| 11 | Roblox | `*.rbxl` / `*.rbxlx`, or `*.project.json` (Rojo) | `*.luau`, `DataStoreService`, `game:GetService` | `skills/other-engines/roblox-luau`, `roblox-datastores` |
+| 9 | Defold | `game.project` | `*.collection`, `*.go`, `*.script`, `*.gui_script`, `*.atlas`, `*.input_binding`, `/builtins/` paths | `skills/other-engines/defold-core/` |
+| 10 | LÖVE | `conf.lua`, or `main.lua` calling `love.*` | `*.love` | `skills/other-engines/love2d-core/` |
+| 11 | pygame | `*.py` with `import pygame` | `pygame.init()`, `pygame.display.set_mode` | `skills/other-engines/pygame-core/` |
+| 12 | Roblox | `*.rbxl` / `*.rbxlx`, or `*.project.json` (Rojo) | `*.luau`, `DataStoreService`, `game:GetService` | `skills/other-engines/roblox-luau`, `roblox-datastores` |
 
 ## Detect the installed version
 
@@ -33,6 +34,7 @@ Engine identity is not enough. Read the version source before using version-sens
 | Phaser / PixiJS / three.js | `package.json` **and the resolved lockfile**, not a tutorial's version |
 | Bevy | `Cargo.toml` and the resolved `Cargo.lock` entry |
 | pygame-ce | `pyproject.toml`, requirements/lock files, then the active environment |
+| Defold | `game.project` has no engine version key: use the editor or `bob.jar` version the project is built with (a release or sha1 pinned in CI or docs; `java -jar bob.jar --version`), and `library.defold_min_version` when present |
 | LÖVE | `conf.lua` version when declared, then the installed runtime |
 | Roblox | platform APIs are rolling; inspect current Creator Hub documentation for unstable APIs |
 
@@ -50,6 +52,12 @@ preserve the detected version unless the user explicitly requests migration.
   an editor/tool or another engine's project can use the dependency without being an
   Ebitengine game. Browser launch scaffolding does not change a Go game's engine to a
   JavaScript renderer.
+- **Defold vs LÖVE vs plain Lua** — all three are Lua. A `game.project` file in the project
+  root means **Defold**, even if a `main.lua` module is present; Defold code lives in
+  `.script`/`.gui_script` files and `require`d modules and never calls `love.*`. LÖVE
+  needs `conf.lua` or a `main.lua` calling `love.*`. Lua files or a `.rockspec` with
+  neither signal are not an engine project: use the unknown-engine fallback. Roblox Luau is
+  detected by its place/Rojo files, not by `.lua`.
 - **Multiple web deps** — a `package.json` may list more than one of `phaser` / `pixi.js` /
   `three`. Prefer the library actually imported in the file under discussion; if unclear, ask
   which renderer the task targets before loading a web-engine skill.

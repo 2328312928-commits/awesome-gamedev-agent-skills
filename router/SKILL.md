@@ -2,7 +2,7 @@
 name: router
 description: >
   Routes any game-development request to the right specialized skill(s): it detects the engine
-  (Godot, Unity, Unreal, Ebitengine, Bevy, Phaser, PixiJS, three.js, LÖVE, pygame, Roblox) and the task, then
+  (Godot, Unity, Unreal, Ebitengine, Bevy, Phaser, PixiJS, three.js, Defold, LÖVE, pygame, Roblox) and the task, then
   reads the chosen skill before acting. Use to make a game or to decide which skill applies — for
   players, levels, enemies, shaders, art direction, sprites, tiles, textures, 3D assets, UI/UX,
   cameras, game feel, physics, input, audio, saving, multiplayer, AI, dialogue, procedural
@@ -56,12 +56,13 @@ Scan for the highest-confidence signal; **choose exactly one** engine. Stop at t
 | 6 | Phaser | `package.json` dep `phaser` | `skills/web-engines/phaser-*` |
 | 7 | PixiJS | `package.json` dep `pixi.js` | `skills/web-engines/pixijs-rendering/` |
 | 8 | three.js | `package.json` dep `three` | `skills/web-engines/threejs-*` |
-| 9 | LÖVE | `conf.lua` / `main.lua` calling `love.*` | `skills/other-engines/love2d-core/` |
-| 10 | pygame | `*.py` with `import pygame` | `skills/other-engines/pygame-core/` |
-| 11 | Roblox | `*.rbxl(x)` / `*.project.json` (Rojo) | `skills/other-engines/roblox-*` |
+| 9 | Defold | `game.project` | `skills/other-engines/defold-core/` |
+| 10 | LÖVE | `conf.lua` / `main.lua` calling `love.*` | `skills/other-engines/love2d-core/` |
+| 11 | pygame | `*.py` with `import pygame` | `skills/other-engines/pygame-core/` |
+| 12 | Roblox | `*.rbxl(x)` / `*.project.json` (Rojo) | `skills/other-engines/roblox-*` |
 
-For secondary signals, the Godot-C#/Unity/Bevy and multi-web disambiguation rules, monorepos,
-and plain-text engine mentions, read `references/engine-detection.md`.
+For secondary signals, the Godot-C#/Unity/Bevy, Defold/LÖVE/Lua and multi-web disambiguation
+rules, monorepos, and plain-text engine mentions, read `references/engine-detection.md`.
 
 After identifying the engine, read its version from project metadata or dependency locks before
 choosing APIs. Existing projects keep their pinned version unless migration is requested; the
@@ -108,7 +109,9 @@ File signals sharpen this: `*.yarn`/`*.ink` → `dialogue-systems`/`visual-novel
   references; generating the starter is optional for an existing project.
 - **Web** (`skills/web-engines/`): `phaser-core`, `phaser-arcade-physics`; `pixijs-rendering`;
   `threejs-scene-setup`, `threejs-gltf-loading`, `threejs-materials-lighting`.
-- **Other** (`skills/other-engines/`): `bevy-ecs`, `pygame-core`, `love2d-core`; Roblox foundation
+- **Other** (`skills/other-engines/`): `bevy-ecs`, `pygame-core`, `love2d-core`; Defold
+  `defold-core` (collections, game objects, scripts, input, messages, factories, proxies,
+  Bob builds); Roblox foundation
   `roblox-luau`, persistence `roblox-datastores`, UI `roblox-ui`, remotes/security
   `roblox-networking`, character lifecycle `roblox-characters`, simulation/queries
   `roblox-physics`, and in-Studio operation `roblox-studio-workflow`.
@@ -143,6 +146,12 @@ For Ebitengine, bind engine-specific slots to `ebitengine-game` and its relevant
 (input, rendering, text/UI, audio, gameplay, tilemaps or state/testing). Add only the needed
 disciplines; do not load Godot or Unity APIs from a genre's example bindings. Native 3D and a
 ready-made network backend are not supplied by this 2D skill; state those gaps when relevant.
+
+For Defold, bind engine-specific slots (movement, input, spawning, level loading, build) to
+`defold-core` and add only the needed disciplines, e.g. "add player movement to my Defold
+game" → `defold-core` + `input-systems` (+ `platformer` for a platformer). Defold has no
+dedicated GUI, tilemap or physics skill yet; use `defold-core` and its build reference's
+pointers, and state the gap.
 
 ### 3c. Genres — **compose** engine + disciplines (bind `*` to the detected engine)
 
@@ -223,6 +232,7 @@ and offer to load it if the user confirms.
 | "make an inventory for my Unity RPG" | Unity (`Assets/`+`ProjectSettings/`) | `unity-scriptableobjects` → `rpg` → `save-systems` |
 | "build a 2D puzzle in Go with Ebitengine" | Ebitengine (named; later `go.mod`) | `ebitengine-game` → `puzzle` |
 | "fix a stale HUD in my Go game" | Ebitengine (`go.mod` + game imports) | `ebitengine-game` → `game-ui-ux`; read text/UI, no new scaffold |
+| "add player movement to my Defold game" | Defold (`game.project`) | `defold-core` → `input-systems` |
 | "procedural dungeon roguelike in Godot" | Godot | `godot-tilemap` → `procedural-gen` → `roguelike` |
 | "branching dialogue from a `.yarn` file" | (none required) | `dialogue-systems` (+ engine UI skill if an engine is detected) |
 | "how do I design save slots with migration?" | (none) | `save-systems` only |
