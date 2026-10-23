@@ -108,7 +108,8 @@ func drawGlow(dst, img *ebiten.Image, x, y float64, alpha float32) {
 ## Shapes
 
 `vector.FillRect`, `StrokeRect`, `StrokeLine`, `FillCircle`, `StrokeCircle` take
-`float32` coordinates, a colour and an `antialias` flag. Use `true` for smooth geometry; intentional
+`float32` coordinates, a colour and an `antialias` flag; the `Stroke*` functions
+also take a `float32` `strokeWidth` before the colour. Use `true` for smooth geometry; intentional
 pixel-art edges may use `false`. (v2.9 renamed
 `DrawFilledRect`/`DrawFilledCircle` to `FillRect`/`FillCircle`). For other
 shapes, build a `vector.Path`:
@@ -251,6 +252,7 @@ collision-critical movement, tie rules updates to `Draw`, or let offscreen rende
 culling silently stop gameplay. These are conditional applications of
 [game-developer's performance guidance](https://github.com/Jeffallan/claude-skills/blob/02b05028ba6c93f7aed45314b15c0dd5abead9d6/skills/game-developer/references/performance-optimization.md),
 rather than requirements to add pooling, LOD or an ECS before measuring.
+For engine-neutral profiling and budgeting, pair this with `performance-optimization`.
 
 For art-set/sprite registration checks, see [Assets and animation](assets-and-animation.md).
 For Kage, consult the pinned engine's shader documentation or its

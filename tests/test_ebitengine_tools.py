@@ -56,6 +56,14 @@ class ToolTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual((out / "keep.txt").read_text(), "keep")
 
+    def test_generator_skips_major_version_suffix_in_game_name(self):
+        out = self.root / "versioned"
+        result = self.run_tool("new_game.py", "--out", out, "--module", "github.com/you/coolgame/v2", "--ci")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        workflow = (out / ".github/workflows/ci.yml").read_text()
+        self.assertIn("GAME: coolgame", workflow)
+        self.assertIn("com.example.coolgame", workflow)
+
     def test_generator_rejects_known_incompatible_or_bad_inputs_before_writing(self):
         for options in (("--module", "example.com/../game"),
                         ("--ebiten", "v2.9.0"), ("--go", "1.24.0")):

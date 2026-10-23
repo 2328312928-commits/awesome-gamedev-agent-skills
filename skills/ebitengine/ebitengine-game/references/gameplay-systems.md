@@ -202,7 +202,7 @@ and preserve intended buffered actions. See [Assets and animation](assets-and-an
 for aligning contact markers, hitboxes and sound.
 
 This applies the importance/decay principle from
-[game-feel](https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/38a4c2500eeb5ff9ac084336b8f66108069d2f8d/skills/disciplines/game-feel/SKILL.md).
+`game-feel`.
 There is no required number of channels. Easing is useful for settling UI or
 poses; constant-speed projectiles, precise meters and some art directions should
 stay linear. A large feedback bundle cannot compensate for unclear rules.

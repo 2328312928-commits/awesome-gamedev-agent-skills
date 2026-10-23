@@ -175,7 +175,8 @@ Ebitengine's pure-Go desktop backend.
 
 This skill owns Ebitengine/Go APIs. For portable design concerns, pair it with
 the relevant installed discipline (for example `game-ui-ux`, `game-feel`,
-`create-game-assets` or `save-systems`), genre or shipping workflow. Bind the
+`create-game-assets`, `input-systems`, `performance-optimization` or
+`save-systems`), genre or shipping workflow. Bind the
 engine slots to this skill's references, not another engine's example code.
 Load only what the task needs; the complete folder also works on its own.
 

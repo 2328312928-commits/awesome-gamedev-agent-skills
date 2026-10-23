@@ -122,6 +122,7 @@ WebAssembly.instantiateStreaming(fetch("game.wasm"), go.importObject).then(r => 
 - No ordinary persistent OS file system: small saves can use `localStorage` via
   `syscall/js`; handle quota/unavailable storage. Larger data may need IndexedDB.
 - For itch.io upload, zip `dist/` with `index.html` at the top level and test the actual hosted page.
+  For page setup and butler uploads, see `itch-publish`.
 
 ## Mobile
 
@@ -154,7 +155,8 @@ ebitenmobile bind -target ios -o MyGame.xcframework ./mobile
 
 The Android `.aar` provides an `EbitenView`; call its `suspendGame()`/`resumeGame()`
 from `onPause`/`onResume`. The iOS framework provides a view controller to
-subclass. Requirements: Android SDK/NDK via Android Studio (minimum SDK 16), Xcode
+subclass. Requirements: Android SDK/NDK via Android Studio (ebitenmobile defaults
+to minimum API 21; `-androidapi` sets it), Xcode
 for iOS 13+. For this layout, move the game type out of `package main` into a
 package (here `game`) that both `main` and the mobile package import.
 

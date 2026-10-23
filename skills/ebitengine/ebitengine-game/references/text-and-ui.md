@@ -146,7 +146,7 @@ behavior. A modal owns input; closing it restores a still-valid previous control
 or a deliberate fallback. Skip hidden/disabled items, and prevent the same press
 that opens/closes an overlay from also activating a control or gameplay behind
 it. Mouse hover and persistent focus need not be the same state. This develops
-the focus lifecycle in [game-ui-ux](https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/38a4c2500eeb5ff9ac084336b8f66108069d2f8d/skills/disciplines/game-ui-ux/references/layout-and-flow.md).
+the focus lifecycle in `game-ui-ux` (its layout-and-flow reference).
 
 Reserve stable space for changing numbers (score, time, ammunition); measure the
 largest supported representation or use suitable tabular digits. Test transitions

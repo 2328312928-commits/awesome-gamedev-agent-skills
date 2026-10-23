@@ -89,6 +89,7 @@ functions and platform support; it does not automatically provide all Steam
 features. The binding can load its shared library during package initialization,
 so isolate the import behind a store/platform build tag. A runtime flag after
 `init` cannot rescue a build whose SDK library failed to load.
+For depots, SteamPipe uploads and store release, see `steam-publish`.
 
 Keep game-used services behind a small interface and provide a non-Steam
 implementation for other targets/tests. Initialize the SDK deliberately, call
