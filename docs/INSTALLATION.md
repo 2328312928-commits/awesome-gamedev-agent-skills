@@ -30,7 +30,7 @@ is the dispatcher). Copy it in alongside the others so the agent can route reque
 
 The [`skills` CLI](https://www.npmjs.com/package/skills) is the package manager for the Agent
 Skills ecosystem. It detects the agents installed on your machine and copies the skills (the
-router plus all 74) into each one's skills directory — no clone required:
+router plus all 75) into each one's skills directory — no clone required:
 
 ```bash
 # install into whatever agent(s) you have
@@ -59,7 +59,7 @@ so you can install it without cloning or copying files. Add the marketplace once
 claude plugin marketplace add gamedev-skills/awesome-gamedev-agent-skills
 ```
 
-Easiest — install the router and all 74 skills in one command:
+Easiest — install the router and all 75 skills in one command:
 
 ```bash
 claude plugin install gamedev@awesome-gamedev-agent-skills
@@ -69,7 +69,7 @@ Or install just what you use (each engine and category is its own plugin):
 
 ```bash
 claude plugin install router@awesome-gamedev-agent-skills        # always install this
-claude plugin install godot@awesome-gamedev-agent-skills         # engine: godot | unity | unreal | web-engines | other-engines
+claude plugin install godot@awesome-gamedev-agent-skills         # engine: godot | unity | unreal | ebitengine | web-engines | other-engines
 claude plugin install disciplines@awesome-gamedev-agent-skills   # cross-engine concepts
 claude plugin install genres@awesome-gamedev-agent-skills        # genre templates
 claude plugin install workflows@awesome-gamedev-agent-skills     # jam / prototype / shipping

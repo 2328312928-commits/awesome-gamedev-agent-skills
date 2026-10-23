@@ -52,6 +52,12 @@ a real folder at `skills/<category>/<name>/SKILL.md`. Trigger words (`says:`) an
 | `unreal-niagara` | "Niagara", "VFX", "particle system"; `NS_`/`NE_` |
 | `unreal-packaging` | "package Unreal", "cook content", "shipping build" |
 
+### Ebitengine (`skills/ebitengine/`, target v2.10.5 / Go 1.25+)
+
+| Skill | Pick it when |
+|-------|--------------|
+| `ebitengine-game` | "Ebitengine", "Ebiten", "2D game in Go", `Update`/`Draw`/`Layout`, action input, sprites, text, audio, scenes, testing or builds in an Ebitengine game; `go.mod` requiring `github.com/hajimehoshi/ebiten/v2` plus game imports |
+
 ### Web engines (`skills/web-engines/`) — detected from `package.json` + imports
 
 | Skill | Pick it when |
@@ -140,3 +146,9 @@ the detected engine lacks, load the closest skill(s) and **state the gap** plain
   and the engine's rendering skill for drawing; note the missing engine tilemap skill.
 - **No engine-specific save skill except Roblox.** `save-systems` owns the concept and cites
   Godot IO; `roblox-datastores` is the one engine-specific persistence skill.
+- **Ebitengine uses one engine skill with focused references.** Bind engine movement,
+  collision, rendering/camera, UI, audio, data/save and build slots to `ebitengine-game`;
+  open only the matching reference. A puzzle/card request does not require a platformer
+  scaffold. The Tiled loader is deliberately constrained, not a complete editor importer.
+  Networking guidance does not supply transport/matchmaking; native 3D is outside this
+  2D skill. Never substitute another engine's API to hide one of these gaps.

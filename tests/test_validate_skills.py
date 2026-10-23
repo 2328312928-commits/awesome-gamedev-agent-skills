@@ -157,6 +157,7 @@ class ValidatorTests(unittest.TestCase):
             "godot",
             "unity",
             "unreal",
+            "ebitengine",
             "web-engines",
             "other-engines",
             "disciplines",

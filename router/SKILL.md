@@ -2,7 +2,7 @@
 name: router
 description: >
   Routes any game-development request to the right specialized skill(s): it detects the engine
-  (Godot, Unity, Unreal, Bevy, Phaser, PixiJS, three.js, LÖVE, pygame, Roblox) and the task, then
+  (Godot, Unity, Unreal, Ebitengine, Bevy, Phaser, PixiJS, three.js, LÖVE, pygame, Roblox) and the task, then
   reads the chosen skill before acting. Use to make a game or to decide which skill applies — for
   players, levels, enemies, shaders, art direction, sprites, tiles, textures, 3D assets, UI/UX,
   cameras, game feel, physics, input, audio, saving, multiplayer, AI, dialogue, procedural
@@ -51,13 +51,14 @@ Scan for the highest-confidence signal; **choose exactly one** engine. Stop at t
 | 1 | Godot | `project.godot` | `skills/godot/` |
 | 2 | Unreal | `*.uproject` | `skills/unreal/` |
 | 3 | Unity | `Assets/` **and** `ProjectSettings/ProjectVersion.txt` | `skills/unity/` |
-| 4 | Bevy | `Cargo.toml` with a `bevy` dependency | `skills/other-engines/bevy-ecs/` |
-| 5 | Phaser | `package.json` dep `phaser` | `skills/web-engines/phaser-*` |
-| 6 | PixiJS | `package.json` dep `pixi.js` | `skills/web-engines/pixijs-rendering/` |
-| 7 | three.js | `package.json` dep `three` | `skills/web-engines/threejs-*` |
-| 8 | LÖVE | `conf.lua` / `main.lua` calling `love.*` | `skills/other-engines/love2d-core/` |
-| 9 | pygame | `*.py` with `import pygame` | `skills/other-engines/pygame-core/` |
-| 10 | Roblox | `*.rbxl(x)` / `*.project.json` (Rojo) | `skills/other-engines/roblox-*` |
+| 4 | Ebitengine | `go.mod` requiring `github.com/hajimehoshi/ebiten/v2` | `skills/ebitengine/` |
+| 5 | Bevy | `Cargo.toml` with a `bevy` dependency | `skills/other-engines/bevy-ecs/` |
+| 6 | Phaser | `package.json` dep `phaser` | `skills/web-engines/phaser-*` |
+| 7 | PixiJS | `package.json` dep `pixi.js` | `skills/web-engines/pixijs-rendering/` |
+| 8 | three.js | `package.json` dep `three` | `skills/web-engines/threejs-*` |
+| 9 | LÖVE | `conf.lua` / `main.lua` calling `love.*` | `skills/other-engines/love2d-core/` |
+| 10 | pygame | `*.py` with `import pygame` | `skills/other-engines/pygame-core/` |
+| 11 | Roblox | `*.rbxl(x)` / `*.project.json` (Rojo) | `skills/other-engines/roblox-*` |
 
 For secondary signals, the Godot-C#/Unity/Bevy and multi-web disambiguation rules, monorepos,
 and plain-text engine mentions, read `references/engine-detection.md`.
@@ -102,6 +103,9 @@ File signals sharpen this: `*.yarn`/`*.ink` → `dialogue-systems`/`visual-novel
 - **Unreal** (`skills/unreal/`): visual scripting `unreal-blueprints`; C++ gameplay
   `unreal-cpp-gameplay`; input `unreal-enhanced-input`; AI `unreal-behavior-trees`; VFX
   `unreal-niagara`; ship `unreal-packaging`.
+- **Ebitengine** (`skills/ebitengine/`): `ebitengine-game` for Go 2D games and focused
+  input, rendering, text, audio, state/testing and build work. Select only its relevant
+  references; generating the starter is optional for an existing project.
 - **Web** (`skills/web-engines/`): `phaser-core`, `phaser-arcade-physics`; `pixijs-rendering`;
   `threejs-scene-setup`, `threejs-gltf-loading`, `threejs-materials-lighting`.
 - **Other** (`skills/other-engines/`): `bevy-ecs`, `pygame-core`, `love2d-core`; Roblox foundation
@@ -134,6 +138,11 @@ For Roblox, compose cross-engine concepts with the focused engine skill: HUD/men
 replication requests use `roblox-networking` + `roblox-luau`; respawn/rig requests use
 `roblox-characters`; physical simulation/query requests use `roblox-physics` (+
 `physics-tuning` for stability); direct place editing also uses `roblox-studio-workflow`.
+
+For Ebitengine, bind engine-specific slots to `ebitengine-game` and its relevant reference
+(input, rendering, text/UI, audio, gameplay, tilemaps or state/testing). Add only the needed
+disciplines; do not load Godot or Unity APIs from a genre's example bindings. Native 3D and a
+ready-made network backend are not supplied by this 2D skill; state those gaps when relevant.
 
 ### 3c. Genres — **compose** engine + disciplines (bind `*` to the detected engine)
 
@@ -212,6 +221,8 @@ and offer to load it if the user confirms.
 |---------|-----------------|--------------------------|
 | "add a double jump to my Godot player" | Godot (`project.godot`) | `godot-2d-movement` → `platformer` |
 | "make an inventory for my Unity RPG" | Unity (`Assets/`+`ProjectSettings/`) | `unity-scriptableobjects` → `rpg` → `save-systems` |
+| "build a 2D puzzle in Go with Ebitengine" | Ebitengine (named; later `go.mod`) | `ebitengine-game` → `puzzle` |
+| "fix a stale HUD in my Go game" | Ebitengine (`go.mod` + game imports) | `ebitengine-game` → `game-ui-ux`; read text/UI, no new scaffold |
 | "procedural dungeon roguelike in Godot" | Godot | `godot-tilemap` → `procedural-gen` → `roguelike` |
 | "branching dialogue from a `.yarn` file" | (none required) | `dialogue-systems` (+ engine UI skill if an engine is detected) |
 | "how do I design save slots with migration?" | (none) | `save-systems` only |

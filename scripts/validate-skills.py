@@ -290,6 +290,7 @@ def validate_marketplace(files: list[Path]) -> list[str]:
         "godot": "godot",
         "unity": "unity",
         "unreal": "unreal",
+        "ebitengine": "ebitengine",
         "web-engines": "web-engines",
         "other-engines": "other-engines",
         "disciplines": "disciplines",
