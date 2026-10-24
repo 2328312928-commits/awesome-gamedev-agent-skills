@@ -171,8 +171,8 @@ lag. Work with it instead of building a parallel scheme:
 - Remotes still carry discrete facts and requests, but they are not ordered with property and
   attribute replication. Play effects and sounds from `RenderStepped`, reading simulation results,
   so a mispredicted frame does not trigger them twice.
-- `RunService:SetPredictionMode()` forces prediction on or off per instance. Test with Studio's
-  Network Simulator (beta) to add latency and loss.
+- `RunService:SetPredictionMode()` forces prediction on or off per instance (client-only call). Test with
+  Studio's Network Simulator to add latency, jitter and loss.
 
 Server Authority is a project-wide migration. Do not switch `AuthorityMode` on an existing place as
 a side effect of another task; report it as an option instead.

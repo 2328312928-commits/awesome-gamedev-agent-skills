@@ -55,8 +55,8 @@ Run at least two clients where possible and capture server/client Output:
 | unreliable cosmetic load | losses/reordering do not corrupt gameplay state |
 
 Repeat the timing-sensitive cases (spam, simultaneous players, unreliable load, prediction) with
-added latency and packet loss. Studio's Network Simulator (beta at last check) provides this for
-playtest connections; record the settings used.
+added latency and packet loss. Studio's Network Simulator (Device Simulator toolbar) provides this for
+playtest connections; record the profile or settings used.
 
 Do not weaken production validation just to inject malformed calls. Use a Studio-only test harness
 or Command Bar fixture that calls the same pure validator/handler boundary, and remove it after the
