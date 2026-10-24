@@ -160,6 +160,12 @@ fire(x, y) {
   call `body.updateFromGameObject()` (or `refreshBody()` on the game object).
 - **Collider added every frame** → register `collider`/`overlap` once in `create`,
   not in `update`.
+- **Bodies pass through each other after adding collision categories** → a pair only
+  collides when each side's mask includes the other's category, and untouched bodies
+  keep mask `1`. Widen the other side's mask too, and set groups and their members
+  separately (see the reference).
+- **Drag does nothing while a key is held** → Arcade applies drag only on an axis
+  with zero acceleration; set the acceleration to 0 when input stops.
 
 ## References
 
