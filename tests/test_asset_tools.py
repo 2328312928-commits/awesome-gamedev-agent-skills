@@ -71,6 +71,24 @@ class AssetToolTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("expected 32x32", result.stdout)
 
+    def test_asset_report_max_colors_is_an_exact_limit(self) -> None:
+        # The fixture has exactly 2 colors: transparent and the fill.
+        at_limit = self.run_tool(REPORT, str(self.asset), "--max-colors", "2")
+        over_limit = self.run_tool(REPORT, str(self.asset), "--max-colors", "1")
+
+        self.assertEqual(at_limit.returncode, 0, at_limit.stdout)
+        self.assertEqual(over_limit.returncode, 1)
+        self.assertIn("more than 1 colors", over_limit.stdout)
+
+    def test_asset_report_require_alpha_rejects_fully_opaque_rgba(self) -> None:
+        opaque = self.root / "opaque.png"
+        Image.new("RGBA", (8, 8), (40, 40, 40, 255)).save(opaque)
+
+        result = self.run_tool(REPORT, str(opaque), "--require-alpha")
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("fully opaque", result.stdout)
+
     def test_preview_sheet_is_created(self) -> None:
         output = self.root / "preview.png"
         result = self.run_tool(
