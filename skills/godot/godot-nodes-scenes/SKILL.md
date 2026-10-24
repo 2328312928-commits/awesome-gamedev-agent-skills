@@ -118,7 +118,7 @@ func go_to_level_2() -> void:
   and `get_tree().current_scene` is `null`), then at the end of the frame it is freed and the
   new scene is added. Code after the call must not touch `get_tree()` from the old scene. To
   act on the new scene, do it from the new scene's `_ready()`, or from an autoload with
-  `await get_tree().scene_changed` (Godot 4.5+). `change_scene_to_node(node)` (4.5+) swaps
+  `await get_tree().scene_changed` (Godot 4.5+). `change_scene_to_node(node)` (4.6+) swaps
   in a node you have already instanced and configured.
 
 ## References
