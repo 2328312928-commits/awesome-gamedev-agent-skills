@@ -129,8 +129,8 @@ public static class ProfileBuild
 
 ## Pitfalls
 
-- **A scene loads in the Editor but is missing in the build** — it isn't in the Build Settings
-  scene list (or is disabled). `SceneManager.LoadScene` only sees listed scenes.
+- **A scene loads in the Editor but is missing in the build** — it isn't in the scene list
+  (File → Build Profiles → Scene List, or the built profile's own list) or is disabled. `SceneManager.LoadScene` only sees listed scenes.
 - **IL2CPP build fails on a fresh machine** — the platform C++ toolchain (e.g. Windows build
   tools, Android NDK) isn't installed. Mono has no such requirement.
 - **`MissingMethodException`/`TypeLoadException` only in the build** — managed stripping removed
