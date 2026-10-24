@@ -239,7 +239,9 @@ def validate_markdown_links() -> list[str]:
     """Check repository-local Markdown and HTML image targets outside code fences."""
     errors: list[str] = []
     for path in sorted(REPO_ROOT.rglob("*.md")):
-        if any(part in EXCLUDED_DIRS for part in path.parts):
+        # Only look at folders inside the repo: a checkout that itself lives under
+        # an excluded name (for example ~/.kiro/...) must still be checked.
+        if any(part in EXCLUDED_DIRS for part in path.relative_to(REPO_ROOT).parts):
             continue
         text = _without_fenced_code(path.read_text(encoding="utf-8"))
         text = re.sub(r"`[^`]*`", "", text)
@@ -301,7 +303,10 @@ def validate_marketplace(files: list[Path]) -> list[str]:
         expected = {
             f"./{skill.parent.relative_to(REPO_ROOT).as_posix()}"
             for skill in files
-            if skill.parent.parent.name == category
+            # Compare the path under the repo root, not the grandparent folder name:
+            # router/SKILL.md's grandparent is the checkout folder itself, which may
+            # share a category's name.
+            if skill.parent.parent.relative_to(REPO_ROOT).as_posix() == f"skills/{category}"
         }
         if by_name.get(plugin_name) != expected:
             errors.append(f"{_display(path)}: bundle {plugin_name!r} does not exactly match skills/{category}")
