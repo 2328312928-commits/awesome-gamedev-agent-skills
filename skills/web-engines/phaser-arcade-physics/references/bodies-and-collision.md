@@ -74,16 +74,20 @@ group, so one call can wire up "all bullets vs all enemies".
 After the physics step, each body exposes which sides are touching:
 
 ```js
-body.blocked.down   // touching a tile or world boundary below
+body.blocked.down   // can't move down: bounds, tile, or a blocking body below
 body.touching.left  // touching another body on the left this step
 body.onFloor()      // shorthand for blocked.down
 body.onWall()       // blocked.left || blocked.right
 body.wasTouching    // touching state from the previous step (edge detection)
 ```
 
-`blocked` is contact with the world bounds or tiles; `touching` is contact with
-another body. Compare `touching` against `wasTouching` to detect the first frame
-of a hit (e.g. play a sound once on landing).
+`touching` is set for any body contact. `blocked` means the body cannot move further
+that way: the world bounds, a colliding tile, an immovable, static or non-pushable
+(`sprite.setPushable(false)`) body, or a body that is itself blocked (a crate resting
+on the floor). That is why `blocked.down`/`onFloor()` works as a ground check on a
+`staticGroup` platform but stays `false` when landing on an ordinary dynamic body in
+mid-air. Compare `touching` against `wasTouching` to detect the first frame of a hit
+(e.g. play a sound once on landing).
 
 ## World bounds
 
