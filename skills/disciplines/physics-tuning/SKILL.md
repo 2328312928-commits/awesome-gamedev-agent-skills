@@ -144,8 +144,11 @@ pickup.collision_mask  = LAYER_PLAYER                  # pickup only reacts to p
   *after* moving the node. Unity: move interpolated bodies through the
   Rigidbody; a direct `transform` write is ignored unless followed by
   `Physics.SyncTransforms()`.
-- **Feel changes after raising the physics rate**: Godot's damping is tick-rate
-  dependent, so changing `physics_ticks_per_second` needs damping re-tuned.
+- **Feel changes after raising the physics rate**: Godot (GodotPhysics and Jolt
+  alike) damps by multiplying velocity by `1 - damp / ticks_per_second` each
+  tick, an approximation that drifts as `damp` approaches the tick rate (at
+  `damp >= ticks_per_second` the body stops in one tick). Small damping values
+  barely change; re-tune large ones after changing `physics_ticks_per_second`.
 
 ## References
 
