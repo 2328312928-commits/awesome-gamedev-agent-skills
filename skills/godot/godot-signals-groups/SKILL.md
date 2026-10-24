@@ -116,8 +116,9 @@ func open_chest() -> void:
   name share membership. Namespace group names if that matters.
 - **`call_group` silently ignores nodes lacking the method.** Typos in the method name
   fail quietly — prefer a typed signal when the contract matters.
-- **Signal args must match.** Emitting with the wrong arg count/types raises an error;
-  declare typed params and emit exactly those.
+- **Signal args must match the handlers.** `emit()` does not validate arguments against
+  the `signal` declaration; a handler with a different argument count fails with "Method
+  expected N argument(s)" at emit time. Declare typed params and emit exactly those.
 
 ## References
 

@@ -28,26 +28,46 @@ sig.connect(cb, CONNECT_ONE_SHOT | CONNECT_DEFERRED)
 ```gdscript
 signal stat_changed(stat_name: String, old_value: int, new_value: int)
 
+var stats: Dictionary[String, int] = {}
+
 func set_stat(stat: String, value: int) -> void:
-    var old := stats.get(stat, 0)
+    var old: int = stats.get(stat, 0)   # get() returns Variant, so type the variable
     stats[stat] = value
     stat_changed.emit(stat, old, value)
 ```
 
 Typed parameters are documentation and let the editor's connection dialog show argument
-names. They are not strictly enforced at runtime but emitting the wrong count errors.
+names. `emit()` does not check them against the declaration; a mismatch shows up as an
+error when a connected handler is called with the wrong number of arguments.
 
 ## Awaiting a signal with a timeout
 
-`await` has no built-in timeout. Race the signal against a timer:
+`await` has no built-in timeout. Race the signal against a timer by having both finish one
+helper signal, and await that:
 
 ```gdscript
-func wait_for_signal_or_timeout(obj: Object, sig: String, seconds: float) -> bool:
+signal _race_finished(signal_won: bool)
+
+## Returns true if `sig` fired within `seconds`, false on timeout.
+func await_signal_or_timeout(sig: Signal, seconds: float) -> bool:
+    var on_signal := func(..._args: Array) -> void: _race_finished.emit(true)
+    var on_timeout := func() -> void: _race_finished.emit(false)
     var timer := get_tree().create_timer(seconds)
-    # Whichever emits first resumes; check which one.
-    var got = await Signal(obj, sig)  # for a fixed signal, prefer obj.signal_name
-    return true
+    sig.connect(on_signal, CONNECT_ONE_SHOT)
+    timer.timeout.connect(on_timeout, CONNECT_ONE_SHOT)
+    var won: bool = await _race_finished
+    if sig.is_connected(on_signal):          # the loser is still connected
+        sig.disconnect(on_signal)
+    if timer.timeout.is_connected(on_timeout):
+        timer.timeout.disconnect(on_timeout)
+    return won
+
+# Usage: if not await await_signal_or_timeout($Door.opened, 2.0): print("door stuck")
 ```
+
+The `..._args` rest parameter (Godot 4.5+) lets one helper accept signals with any number
+of arguments. Run one race at a time per node; two overlapping calls share
+`_race_finished`.
 
 For most gameplay, awaiting `animation_finished`, `timeout`, or `tween_finished`
 directly is cleaner.
