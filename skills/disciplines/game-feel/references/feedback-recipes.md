@@ -91,7 +91,9 @@ feeling either dead (under-juiced) or exhausting (everything maxed).
 - **Reduce screen shake** (scale trauma output by a 0–100% setting, default ~60–80%).
 - **Reduce/disable flashing** (photosensitivity) — replace white flashes with a static tint.
   Even with flashing on, keep any large-area flash at or under three flashes in any one-second
-  window (WCAG 2.3.1 general flash threshold; Xbox Accessibility Guideline 118, Photosensitivity).
+  window ([WCAG 2.3.1](https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html)
+  general flash threshold; [Xbox Accessibility Guideline 118](https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/118),
+  Photosensitivity).
 - **Reduce camera motion** — cut shake roll and zoom punches.
 
 These pair with `game-ui-ux` (settings menu) and `input-systems` (accessibility section).
