@@ -77,7 +77,7 @@ RunUAT BuildCookRun \
 `RunUAT` lives in `Engine/Build/BatchFiles/` (`RunUAT.bat` on Windows, `RunUAT.sh` on
 macOS/Linux). Drop `-allmaps` and pass `-map=Map1+Map2` to cook a subset. UE 5.8 adds
 experimental Windows on Arm game builds: `-clientarchitecture=arm64` (or `arm64+x64` for both
-executables side by side); the editor itself does not run on Arm64.
+executables side by side); the editor itself is not supported on Arm64 in 5.8.
 
 ### 3. Cook only (no packaging), e.g. to refresh content
 
