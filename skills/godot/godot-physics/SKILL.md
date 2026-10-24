@@ -31,8 +31,10 @@ uses Godot's own 2D engine.
 
 1. **For 3D, check which engine runs** before debugging behavior: Project Settings >
    Physics > 3D > Physics Engine (`[physics]` `3d/physics_engine="Jolt Physics"` in
-   `project.godot`). The API is the same, but joints, ray-cast face indices, kinematic
-   contacts, and collision margins behave differently (see Pitfalls).
+   `project.godot`). Projects created in 4.6+ get Jolt written there by default; with no
+   such line (`DEFAULT`) the engine is GodotPhysics3D. The API is the same, but joints,
+   ray-cast face indices, kinematic contacts, and collision margins behave differently
+   (see Pitfalls).
 2. **Choose the body type:**
    - `StaticBody` — never moves (floors, walls). Collides, no simulation.
    - `RigidBody` — fully simulated (gravity, forces, bouncing). Don't set its
