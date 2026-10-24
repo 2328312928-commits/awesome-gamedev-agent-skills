@@ -182,5 +182,42 @@ class ValidatorTests(unittest.TestCase):
 
         self.assertTrue(any("'gamedev' must set strict=false" in error for error in errors))
 
+    def test_checkout_folder_named_like_a_category_passes_bundle_check(self) -> None:
+        # A checkout folder called "godot" makes router/SKILL.md's grandparent
+        # folder name "godot"; the router must still not count as a Godot skill.
+        root = self.repo_root / "godot"
+        root.mkdir()
+        with patch.object(validate_skills, "REPO_ROOT", root):
+            skill = root / "skills" / "godot" / "test-skill" / "SKILL.md"
+            skill.parent.mkdir(parents=True)
+            skill.write_text(
+                "---\nname: test-skill\ndescription: Handles fixtures. Use when testing.\n---\n",
+                encoding="utf-8",
+            )
+            router = root / "router" / "SKILL.md"
+            router.parent.mkdir()
+            router.write_text(
+                "---\nname: router\ndescription: Routes fixtures. Use when selecting a test skill.\n---\n",
+                encoding="utf-8",
+            )
+            plugins = []
+            for name in (
+                "gamedev", "router", "godot", "unity", "unreal", "ebitengine",
+                "web-engines", "other-engines", "disciplines", "genres", "workflows",
+            ):
+                paths = {
+                    "gamedev": ["./skills/godot/test-skill", "./router"],
+                    "router": ["./router"],
+                    "godot": ["./skills/godot/test-skill"],
+                }.get(name, [])
+                plugins.append({"name": name, "source": "./", "strict": False, "skills": paths})
+            manifest = root / ".claude-plugin" / "marketplace.json"
+            manifest.parent.mkdir()
+            manifest.write_text(json.dumps({"plugins": plugins}), encoding="utf-8")
+
+            errors = validate_skills.validate_marketplace([skill, router])
+
+        self.assertFalse(any("does not exactly match" in error for error in errors), errors)
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,7 +1,8 @@
 # Skill authoring standard
 
 This repository follows the current [Agent Skills specification](https://agentskills.io/specification)
-and intentionally uses its smallest portable subset. Checked **2026-08-08**.
+and intentionally uses its smallest portable subset. Checked **2026-10-24**; the specification's
+last change was the 2026-08-04 clarification of the `metadata` field.
 
 ## Directory contract
 
@@ -63,8 +64,9 @@ A useful skill is an operational playbook, not an encyclopedia. Prefer this shap
 5. Pitfalls written as symptom → likely cause → remedy.
 6. Links to bundled resources and related skills.
 
-Keep `SKILL.md` under 500 lines. If material is not needed on every activation, move it to one
-directly linked reference. Avoid deep reference chains.
+Keep `SKILL.md` under 500 lines; the specification also recommends keeping the body under about
+5,000 tokens, because agents load the whole file on activation. If material is not needed on every
+activation, move it to one directly linked reference. Avoid deep reference chains.
 
 ## Version-aware guidance
 
@@ -130,7 +132,10 @@ interface:
 ```
 
 Keep `short_description` between 25 and 64 characters. The default prompt should mention the
-skill as `$skill-name`.
+skill as `$skill-name`. Codex also accepts optional `icon_small`, `icon_large` and `brand_color`
+under `interface`, `policy.allow_implicit_invocation`, and MCP tool `dependencies`; this catalog
+does not use them, and the validator checks only the three fields above. See the
+[Codex skills docs](https://learn.chatgpt.com/docs/build-skills) for the full schema.
 
 ## Router and distribution wiring
 
