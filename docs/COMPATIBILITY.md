@@ -118,5 +118,4 @@ adoption above is what turns "write it once" into "runs everywhere."
 *Sources (checked 2026-10-24): the Agent Skills [specification](https://agentskills.io/specification)
 and [client list](https://agentskills.io/clients); the [`skills` CLI](https://www.npmjs.com/package/skills)
 and its [supported-agents list](https://github.com/vercel-labs/skills/blob/main/docs/agents.md);
-and each agent's skills docs linked in the table above.
-Content was rephrased for compliance with licensing restrictions.*
+and each agent's skills docs linked in the table above.*

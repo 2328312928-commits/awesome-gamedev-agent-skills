@@ -47,7 +47,8 @@ npx skills add gamedev-skills/awesome-gamedev-agent-skills
 ```
 
 Add `--list` to preview first, `-g` to install for every project, or `-a <agent>` to target a
-specific tool (`-a cursor`, `-a claude-code`, `-a gemini-cli`, …). The same `SKILL.md` files load
+specific tool (`-a cursor`, `-a claude-code`, `-a gemini-cli`, …). The CLI needs Node.js 22.20 or
+later. The same `SKILL.md` files load
 natively in Claude Code, Cursor, Windsurf, Cline, Codex, Gemini CLI, GitHub Copilot, Kiro, and
 [dozens more](docs/COMPATIBILITY.md) — there's nothing to convert.
 
@@ -275,7 +276,7 @@ npx skills add gamedev-skills/awesome-gamedev-agent-skills
 | Claude Code | `.claude/skills/` |
 | Codex · Gemini CLI · GitHub Copilot · Antigravity | `.agents/skills/` _(shared path)_ |
 | Cursor | `.cursor/skills/` _(also reads `.agents/skills/`)_ |
-| Windsurf | `.windsurf/skills/` |
+| Windsurf | `.devin/skills/` _(also reads `.windsurf/skills/`)_ |
 | Cline | `.cline/skills/` |
 | Kiro | `.kiro/skills/` |
 | Oh My Pi (omp) | `.omp/skills/` _(also reads `.agents/skills/`)_ |
