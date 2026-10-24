@@ -63,6 +63,10 @@ python scripts/validate-skills.py
 
 It exits non-zero and prints a report if anything fails.
 
+If you have Claude Code installed, `claude plugin validate .` additionally checks
+`.claude-plugin/marketplace.json` against Claude Code's own marketplace schema (JSON syntax,
+required fields, entry names and relative paths).
+
 If you change the validator itself, run its regression tests too:
 
 ```bash
@@ -102,7 +106,7 @@ PR:
    catalog/count. The validator checks these connections.
 
 Keep the router lean: it dispatches by `name` + `description`, so a precise description (see
-[`docs/SKILL-FORMAT.md`](docs/SKILL-FORMAT.md) §3) does most of the routing work.
+[Required frontmatter](docs/SKILL-FORMAT.md#required-frontmatter)) does most of the routing work.
 
 ## Commits & PRs
 

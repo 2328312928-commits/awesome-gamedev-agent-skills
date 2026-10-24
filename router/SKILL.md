@@ -66,8 +66,9 @@ rules, monorepos, and plain-text engine mentions, read `references/engine-detect
 
 After identifying the engine, read its version from project metadata or dependency locks before
 choosing APIs. Existing projects keep their pinned version unless migration is requested; the
-catalog baseline is only for new projects. The exact version sources are in the detection reference
-and `../docs/VERSION-SUPPORT.md`.
+catalog baseline is only for new projects. The exact version sources are in the detection reference;
+each engine skill states its new-project baseline, and the catalog-wide table is
+`docs/VERSION-SUPPORT.md` in the source repository (it is not installed with the router).
 
 ## 2. Task classification (phrasing → category)
 
