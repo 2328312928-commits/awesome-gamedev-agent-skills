@@ -179,6 +179,11 @@ this.cameras.main.setZoom(1.5);
   `false` in Phaser 4.
 - **Nothing renders / black screen** → confirm the canvas mounted, `width`/`height`
   are set, and a scene actually started (check `game.scene.dump()` output).
+- **Two canvases (two games running) after a hot reload or a React/Vue remount** →
+  a second `new Phaser.Game` ran while the first was still alive. Keep one instance
+  and call `game.destroy(true)` when the host component unmounts; the teardown
+  finishes on the next frame. Leave `noReturn` false, or no new game can start on
+  the page.
 
 ## References
 
