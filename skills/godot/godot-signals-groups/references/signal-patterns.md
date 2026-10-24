@@ -79,9 +79,13 @@ if sig.is_connected(cb):
     sig.disconnect(cb)
 ```
 
-Nodes auto-disconnect connections where the *connected object* (the one owning the
-Callable) is freed. You still must disconnect manually if the *emitter* outlives the
-listener and you re-create listeners (otherwise stale connections accumulate).
+A connection is removed automatically when the emitter or the object that owns the
+Callable is freed. A **lambda** is owned by the object whose script created it, not by the
+nodes it captures: if a captured node is freed, the lambda stays connected and errors
+("Lambda capture at index 0 was freed") the next time the signal fires. Each `func():`
+expression is also a new Callable, so `is_connected()` cannot spot a repeat and every
+re-connect stacks another call. Keep the lambda in a variable so you can disconnect it, or
+connect a method on the listener instead.
 
 ## Groups: full API
 
